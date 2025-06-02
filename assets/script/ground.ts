@@ -1,8 +1,15 @@
 import { _decorator, Canvas, Component, director, Node, UITransform, Vec3 } from 'cc';
+import { GameControl } from './GameControl';
 const { ccclass, property } = _decorator;
 
 @ccclass('ground')
-export class ground extends Component {
+export class Ground extends Component {
+
+    @property({
+        type: GameControl,
+        tooltip: "Reference to the GameControl script instance",
+    })
+    public gameControl: GameControl;
 
     @property({
         type: Node,
@@ -126,6 +133,7 @@ export class ground extends Component {
     }
 
     update(deltaTime: number) {
+        this.gameSpeed = this.gameControl.gameSpeed;
         this.updateGroundPositions(deltaTime);
         this.resetGroundIfNeeded();
     }
